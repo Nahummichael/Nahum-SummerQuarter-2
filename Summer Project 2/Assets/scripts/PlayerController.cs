@@ -6,11 +6,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("A variable to store the input action sheet the player needs for inputs")] 
     private InputActionAsset InputActions;
 
-    // these are the actual actions
+    //THE ACTUAL ACTIONS
     private InputAction moveAction;
     private InputAction jumpAction;
 
+    //LOGIC
     private Vector2 moveInput;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float groundCheckDistance = 1f;
+
 
     //Components
     [SerializeField] private Rigidbody rb;
@@ -74,6 +78,23 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJump()
     {
-        Debug.Log("Jump My Bones!");
+        if (IsGrounded())
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
     }
+
+    private bool IsGrounded()
+    {
+
+        //visually draw the ray
+        Debug.DrawRay(transform.position, 
+        Vector3.down * groundCheckDistance);
+
+
+        // checking if the player is grounded that way they cant spam jump in the air
+        return Physics.Raycast(transform.position, Vector3.down, 
+        groundCheckDistance, groundLayer);
+    }
+
 }
