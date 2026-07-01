@@ -1,73 +1,86 @@
 using UnityEngine;
 
-public class HotPotato : MonoBehaviour
-{
-   [Header("Timer Settings")]
-    [SerializeField] private float countdownTime = 5f;
+public class HotPotato : MonoBehaviour 
+{ 
+    [Header("Timer Settings")] 
+    [SerializeField] private float countdownTime = 5f; 
 
-    [Header("Explosion Settings")]
-    private GameObject explosionEffect;
+    [Header("Explosion Settings")] 
+    [SerializeField] private GameObject explosionEffect; 
 
-    private bool isExploding = false;
-    private float timer;
-    private bool isPickedUp = false;
+    private bool isExploding = false; 
+    private float timer; 
+    private bool isPickedUp = false; 
 
-    void Start()
-    {
-        timer = countdownTime;
-    }
+    void Start() 
+    { 
+        timer = countdownTime; 
+    } 
 
-    void Update()
-    {
-        if (timer > 0)
-        {
-            timer -= Time.deltaTime;
-        }
-        else if (!isExploding)
-        {
-            Explode();
-        }
-    }
+    void Update() 
+    { 
+        if (timer > 0) 
+        { 
+            timer -= Time.deltaTime; 
+        } 
+        else if (!isExploding) 
+        { 
+            Explode(); 
+        } 
+    } 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        // Only pick up if it hasn't been grabbed yet and the object has a "Player" tag
-        if (!isPickedUp && other.CompareTag("Player"))
-        {
-            PickUp(other.transform);
-        }
-    }
+    private void OnTriggerEnter(Collider other) 
+    { 
+        // 🛑 Don't pick up again if someone already has it!
+        if (isPickedUp) return;
 
-    void PickUp(Transform playerTransform)
-    {
-        isPickedUp = true;
+        // 🏷️ Find all active GameObjects tagged as "Player" 
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player"); 
 
-        // 1. Disable the collider so it doesn't trigger multiple pickups
-        GetComponent<Collider>().enabled = false;
+        // ❌ Safety check
+        if (players.Length == 0) 
+        { 
+            Debug.LogWarning("No players found in the scene!"); 
+            return; 
+        } 
 
-        // 2. Snap it to the player
-        transform.SetParent(playerTransform);
-        transform.localPosition = new Vector3(0, 1f, 0.5f); // Adjust position as needed
-    }
+        // 🎲 Pick a random player
+        int randomIndex = Random.Range(0, players.Length); 
+        GameObject selectedPlayer = players[randomIndex]; 
 
-    void Explode()
-    {
-        isExploding = true;
+        Debug.Log($"🎉 Chosen one: {selectedPlayer.name}"); 
 
-        if (explosionEffect != null)
-        {
-            Instantiate(explosionEffect, transform.position, transform.rotation);
-        }
+        // 🎯 FIX: Pass the potato to the chosen player!
+        PickUp(selectedPlayer.transform);
+    } 
 
-        Destroy(gameObject);
-    }
+    void PickUp(Transform playerTransform) 
+    { 
+        isPickedUp = true; 
 
+        // 1. Disable collider so it stops triggering
+        GetComponent<Collider>().enabled = false; 
 
-public void ForcePickUp(Transform playerTransform)
-{
-    if (!isPickedUp)
-    {
-        PickUp(playerTransform);
-    }
-}
+        // 2. Snap it to the player 
+        transform.SetParent(playerTransform); 
+        transform.localPosition = new Vector3(0, 1f, 0.5f); 
+    } 
+
+    void Explode() 
+    { 
+        isExploding = true; 
+        if (explosionEffect != null) 
+        { 
+            Instantiate(explosionEffect, transform.position, transform.rotation); 
+        } 
+        Destroy(gameObject); 
+    } 
+
+    public void ForcePickUp(Transform randomPlayer) 
+    { 
+        if (!isPickedUp) 
+        { 
+            PickUp(randomPlayer); 
+        } 
+    } 
 }
