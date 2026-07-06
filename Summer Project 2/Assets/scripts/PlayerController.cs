@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem; //imports the input system into this script
+using UnityEngine.InputSystem; 
 
 public class PlayerController : MonoBehaviour
 {

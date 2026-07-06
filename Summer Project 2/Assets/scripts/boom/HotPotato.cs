@@ -31,13 +31,13 @@ public class HotPotato : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     { 
-        // 🛑 Don't pick up again if someone already has it!
+        // Don't pick up again if someone already has it!
         if (isPickedUp) return;
 
         // 🏷️ Find all active GameObjects tagged as "Player" 
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player"); 
 
-        // ❌ Safety check
+        // Safety check
         if (players.Length == 0) 
         { 
             Debug.LogWarning("No players found in the scene!"); 
