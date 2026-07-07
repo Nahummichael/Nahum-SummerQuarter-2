@@ -34,7 +34,7 @@ public class HotPotato : MonoBehaviour
         // Don't pick up again if someone already has it!
         if (isPickedUp) return;
 
-        // 🏷️ Find all active GameObjects tagged as "Player" 
+        // Find all active GameObjects tagged as "Player" 
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player"); 
 
         // Safety check
@@ -44,13 +44,13 @@ public class HotPotato : MonoBehaviour
             return; 
         } 
 
-        // 🎲 Pick a random player
+        // Pick a random player
         int randomIndex = Random.Range(0, players.Length); 
         GameObject selectedPlayer = players[randomIndex]; 
 
         Debug.Log($"🎉 Chosen one: {selectedPlayer.name}"); 
 
-        // 🎯 FIX: Pass the potato to the chosen player!
+        // FIX: Pass the potato to the chosen player!
         PickUp(selectedPlayer.transform);
     } 
 
