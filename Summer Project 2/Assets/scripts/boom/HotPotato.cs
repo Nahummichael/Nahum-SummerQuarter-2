@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class HotPotato : MonoBehaviour 
 { 
@@ -9,25 +10,39 @@ public class HotPotato : MonoBehaviour
     [SerializeField] private GameObject explosionEffect; 
 
     private bool isExploding = false; 
-    private float timer; 
+    [SerializeField] private float timer; 
     private bool isPickedUp = false; 
 
     void Start() 
     { 
         timer = countdownTime; 
+        //StartCoroutine(Countdown());
     } 
+
+    /*IEnumerator Countdown()
+    {
+        while (timer > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            timer -= 1f;
+        }
+
+        Explode();
+    }*/
 
     void Update() 
     { 
         if (timer > 0) 
         { 
             timer -= Time.deltaTime; 
+            // Update the UI timer display
+            UIManager.Instance.UpdateTimer(timer);
         } 
-        else if (!isExploding) 
-        { 
+        else
+        {
             Explode(); 
-        } 
-    } 
+        }
+    }
 
     private void OnTriggerEnter(Collider other) 
     { 
@@ -48,7 +63,7 @@ public class HotPotato : MonoBehaviour
         int randomIndex = Random.Range(0, players.Length); 
         GameObject selectedPlayer = players[randomIndex]; 
 
-        Debug.Log($"🎉 Chosen one: {selectedPlayer.name}"); 
+        Debug.Log($" Chosen one: {selectedPlayer.name}"); 
 
         // FIX: Pass the potato to the chosen player!
         PickUp(selectedPlayer.transform);
