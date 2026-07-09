@@ -88,7 +88,10 @@ public class HotPotato : MonoBehaviour
         { 
             Instantiate(explosionEffect, transform.position, transform.rotation); 
         } 
-        Destroy(gameObject); 
+        Destroy(gameObject);
+
+        // triggers the game over
+        GameManager.Instance.GameOver();
     } 
 
     public void ForcePickUp(Transform randomPlayer) 

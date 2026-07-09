@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    
+
     [SerializeField, Tooltip("A variable to store the input action sheet the player needs for inputs")] 
     private InputActionAsset InputActions;
 
@@ -66,6 +68,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
+        if (GameManager.isGameOver) return; // if the game is over, do not allow player movement
+
         // calculate & store the direction the player will move based on the input
         Vector3 movementDirection = transform.forward * moveInput.y + transform.right * moveInput.x;
 
@@ -78,6 +82,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJump()
     {
+        if (GameManager.isGameOver) return; // if the game is over, do not allow player movement
+
         if (IsGrounded())
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);

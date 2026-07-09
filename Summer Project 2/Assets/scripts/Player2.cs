@@ -66,6 +66,8 @@ public class Player2 : MonoBehaviour
 
     private void HandleMovement()
     {
+        if (GameManager.isGameOver) return; // if the game is over, do not allow player movement
+
         // calculate & store the direction the player will move based on the input
         Vector3 movementDirection = transform.forward * moveInput2.y + transform.right * moveInput2.x;
 
@@ -78,6 +80,8 @@ public class Player2 : MonoBehaviour
 
     private void HandleJump()
     {
+        if (GameManager.isGameOver) return; // if the game is over, do not allow player movement
+
         if (IsGrounded())
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
