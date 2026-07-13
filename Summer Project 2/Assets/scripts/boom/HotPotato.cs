@@ -9,6 +9,8 @@ public class HotPotato : MonoBehaviour
     [Header("Explosion Settings")] 
     [SerializeField] private GameObject explosionEffect; 
 
+    private Transform currentPlayer;
+
     private bool isExploding = false; 
     [SerializeField] private float timer; 
     private bool isPickedUp = false; 
@@ -16,19 +18,8 @@ public class HotPotato : MonoBehaviour
     void Start() 
     { 
         timer = countdownTime; 
-        //StartCoroutine(Countdown());
     } 
 
-    /*IEnumerator Countdown()
-    {
-        while (timer > 0)
-        {
-            yield return new WaitForSeconds(1f);
-            timer -= 1f;
-        }
-
-        Explode();
-    }*/
 
     void Update() 
     { 
@@ -65,13 +56,14 @@ public class HotPotato : MonoBehaviour
 
         Debug.Log($" Chosen one: {selectedPlayer.name}"); 
 
-        // FIX: Pass the potato to the chosen player!
+        // Pass the potato to the chosen player!
         PickUp(selectedPlayer.transform);
     } 
 
     void PickUp(Transform playerTransform) 
     { 
-        isPickedUp = true; 
+        isPickedUp = true;
+        currentPlayer = playerTransform;
 
         // 1. Disable collider so it stops triggering
         GetComponent<Collider>().enabled = false; 
@@ -83,7 +75,6 @@ public class HotPotato : MonoBehaviour
 
     void Explode() 
     { 
-        isExploding = true; 
         if (explosionEffect != null) 
         { 
             Instantiate(explosionEffect, transform.position, transform.rotation); 
@@ -92,6 +83,22 @@ public class HotPotato : MonoBehaviour
 
         // triggers the game over
         GameManager.Instance.GameOver();
+
+        if (currentPlayer != null)
+{
+
+    if (currentPlayer.name == "RobotKyle")
+    {
+        UIManager.Instance.ShowPlayer1Death();
+
+        Debug.Log("Player 1 blew up!");
+    }
+    else if (currentPlayer.name == "Player2")
+    {
+        UIManager.Instance.ShowPlayer2Death();
+        Debug.Log("Player 2 blew up!");
+    }
+}
     } 
 
     public void ForcePickUp(Transform randomPlayer) 
