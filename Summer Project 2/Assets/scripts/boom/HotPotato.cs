@@ -87,7 +87,7 @@ public class HotPotato : MonoBehaviour
         if (currentPlayer != null)
 {
 
-    if (currentPlayer.name == "RobotKyle")
+    if (currentPlayer.name == "Player1")
     {
         UIManager.Instance.ShowPlayer1Death();
 
