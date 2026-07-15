@@ -108,4 +108,14 @@ public class HotPotato : MonoBehaviour
             PickUp(randomPlayer); 
         } 
     } 
+
+    public void SetRemainingTime(float time) 
+    { 
+        timer = time; 
+    }
+
+    public float GetRemainingTime() 
+    { 
+        return timer; 
+    }
 }

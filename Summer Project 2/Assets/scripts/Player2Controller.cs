@@ -1,19 +1,17 @@
 using UnityEngine;
-using UnityEngine.InputSystem; 
+using UnityEngine.InputSystem; //imports the input system into this script
 
-public class PlayerController : MonoBehaviour
+public class Player2Controller : MonoBehaviour
 {
-    
-
     [SerializeField, Tooltip("A variable to store the input action sheet the player needs for inputs")] 
     private InputActionAsset InputActions;
 
     //THE ACTUAL ACTIONS
-    private InputAction moveAction;
-    private InputAction jumpAction;
+    private InputAction moveAction2;
+    private InputAction jumpAction2;
 
     //LOGIC
-    private Vector2 moveInput;
+    private Vector2 moveInput2;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckDistance = 1f;
 
@@ -30,8 +28,8 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         //assigns the input action variables to their actual input action
-        moveAction = InputSystem.actions.FindAction("Move");
-        jumpAction = InputSystem.actions.FindAction("Jump");
+        moveAction2 = InputSystem.actions.FindAction("Move2");
+        jumpAction2 = InputSystem.actions.FindAction("Jump2");
 
         //assign the rb variable to the player
         rb = GetComponent<Rigidbody>();
@@ -51,9 +49,9 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // Reads the player's input and stores it in the action sheet
-        moveInput = moveAction.ReadValue<Vector2>();
+        moveInput2 = moveAction2.ReadValue<Vector2>();
 
-        if (jumpAction.WasPressedThisFrame())
+        if (jumpAction2.WasPressedThisFrame())
         {
             // tells the player to jump
             HandleJump();
@@ -71,7 +69,7 @@ public class PlayerController : MonoBehaviour
         if (GameManager.isGameOver) return; // if the game is over, do not allow player movement
 
         // calculate & store the direction the player will move based on the input
-        Vector3 movementDirection = transform.forward * moveInput.y + transform.right * moveInput.x;
+        Vector3 movementDirection = transform.forward * moveInput2.y + transform.right * moveInput2.x;
 
         //prvents diagonal movement from doubling speed since the player is using two inputs
         movementDirection.Normalize();

@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour
         // turn off the game over panel on game start
         ToggleGameOverUI(false);
 
-        // <<< ADDED: Hide both death canvases when the game starts
+        // Hide both death canvases when the game starts
         player1end.SetActive(false);
         player2end.SetActive(false);
     }

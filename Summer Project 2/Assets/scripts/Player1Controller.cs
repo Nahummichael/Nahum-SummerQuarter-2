@@ -1,17 +1,19 @@
 using UnityEngine;
-using UnityEngine.InputSystem; //imports the input system into this script
+using UnityEngine.InputSystem; 
 
-public class Player2 : MonoBehaviour
+public class Player1Controller : MonoBehaviour
 {
+    
+
     [SerializeField, Tooltip("A variable to store the input action sheet the player needs for inputs")] 
     private InputActionAsset InputActions;
 
     //THE ACTUAL ACTIONS
-    private InputAction moveAction2;
-    private InputAction jumpAction2;
+    private InputAction moveAction;
+    private InputAction jumpAction;
 
     //LOGIC
-    private Vector2 moveInput2;
+    private Vector2 moveInput;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckDistance = 1f;
 
@@ -28,8 +30,8 @@ public class Player2 : MonoBehaviour
     private void Awake()
     {
         //assigns the input action variables to their actual input action
-        moveAction2 = InputSystem.actions.FindAction("Move2");
-        jumpAction2 = InputSystem.actions.FindAction("Jump2");
+        moveAction = InputSystem.actions.FindAction("Move");
+        jumpAction = InputSystem.actions.FindAction("Jump");
 
         //assign the rb variable to the player
         rb = GetComponent<Rigidbody>();
@@ -49,9 +51,9 @@ public class Player2 : MonoBehaviour
     private void Update()
     {
         // Reads the player's input and stores it in the action sheet
-        moveInput2 = moveAction2.ReadValue<Vector2>();
+        moveInput = moveAction.ReadValue<Vector2>();
 
-        if (jumpAction2.WasPressedThisFrame())
+        if (jumpAction.WasPressedThisFrame())
         {
             // tells the player to jump
             HandleJump();
@@ -69,7 +71,7 @@ public class Player2 : MonoBehaviour
         if (GameManager.isGameOver) return; // if the game is over, do not allow player movement
 
         // calculate & store the direction the player will move based on the input
-        Vector3 movementDirection = transform.forward * moveInput2.y + transform.right * moveInput2.x;
+        Vector3 movementDirection = transform.forward * moveInput.y + transform.right * moveInput.x;
 
         //prvents diagonal movement from doubling speed since the player is using two inputs
         movementDirection.Normalize();
@@ -99,6 +101,28 @@ public class Player2 : MonoBehaviour
         // checking if the player is grounded that way they cant spam jump in the air
         return Physics.Raycast(transform.position, Vector3.down, 
         groundCheckDistance, groundLayer);
+    }
+
+
+    private void OnColllsionEnter(Collision collision)
+    {
+        // Detect if the player collides with the other player
+        Player2Controller otherPlayer = collision.gameObject.GetComponent<Player2Controller>();
+
+        if (otherPlayer != null)
+        {
+            Debug.Log("Player 1 collided with Player 2!");
+            // Remove the potator component from this player, then add it to the other player with the remaining time
+            HotPotato hotPotato = GetComponent<HotPotato>();
+            if (hotPotato != null)
+            {
+                float remainingTime = hotPotato.GetRemainingTime();
+                Destroy(hotPotato); // Remove the HotPotato component from this player  
+                // Add the HotPotato component to the other player with the remaining time
+                HotPotato newHotPotato = otherPlayer.gameObject.AddComponent<HotPotato>();
+                newHotPotato.SetRemainingTime(remainingTime);
+            }
+        }
     }
 
 }

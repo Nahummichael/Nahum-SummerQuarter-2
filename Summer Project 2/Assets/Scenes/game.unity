@@ -607,7 +607,7 @@ GameObject:
   - component: {fileID: 159540892}
   - component: {fileID: 159540891}
   m_Layer: 0
-  m_Name: player1
+  m_Name: Player1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1321,8 +1321,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6563862, y: -0.0009170197, z: 0.0007978525, w: 0.75442404}
-  m_LocalPosition: {x: -0.46, y: 29.62, z: -3.18}
+  m_LocalRotation: {x: 0.26370814, y: -0.056270085, z: -0.011767079, w: 0.962888}
+  m_LocalPosition: {x: -0.27, y: 15.91, z: -24.639}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3556,7 +3556,7 @@ Transform:
   m_GameObject: {fileID: 1215617335}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.2, y: 1.36, z: 2.46}
+  m_LocalPosition: {x: 7.2, y: 1.36, z: -4.24}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.49}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3596,12 +3596,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1215617335}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3bc127fc2f3fb416d9743b7f16308031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HotPotato
-  countdownTime: 3
+  countdownTime: 10
   explosionEffect: {fileID: 6953293864351327738, guid: f6f2ae2ab526b41ed979c591def4eb03, type: 3}
   timer: 0
 --- !u!114 &1215617343
@@ -3715,13 +3715,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1247418192}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6563862, y: -0.0009170197, z: 0.0007978525, w: 0.75442404}
-  m_LocalPosition: {x: -0.46, y: 29.62, z: -3.18}
+  m_LocalRotation: {x: 0.26370814, y: -0.056270085, z: -0.011767079, w: 0.962888}
+  m_LocalPosition: {x: -0.27, y: 15.91, z: -24.639}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 82.05, y: -0.139, z: 0}
+  m_LocalEulerAnglesHint: {x: 149.568, y: -187.636, z: -183.48}
 --- !u!1001 &1257119265
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4321,8 +4321,8 @@ GameObject:
   - component: {fileID: 1459993819}
   - component: {fileID: 1459993818}
   - component: {fileID: 1459993817}
-  - component: {fileID: 1459993816}
   - component: {fileID: 1459993815}
+  - component: {fileID: 1459993816}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Player
@@ -6132,7 +6132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   timerText: {fileID: 223446598}
   gameOverPanel: {fileID: 1571324034}
-  player1end: {fileID: 405990783}
+  player1end: {fileID: 736666889}
   player2end: {fileID: 967898918}
 --- !u!4 &1903446305
 Transform:
