@@ -65,10 +65,10 @@ public class HotPotato : MonoBehaviour
         isPickedUp = true;
         currentPlayer = playerTransform;
 
-        // 1. Disable collider so it stops triggering
+        // Disable collider so it stops triggering
         GetComponent<Collider>().enabled = false; 
 
-        // 2. Snap it to the player 
+        // Snap it to the player 
         transform.SetParent(playerTransform); 
         transform.localPosition = new Vector3(0, 1f, 0.5f); 
     } 

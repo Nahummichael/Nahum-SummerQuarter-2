@@ -61,6 +61,9 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("player2", player2Wins);
             PlayerPrefs.Save();
         }
+
+        // update the UI with the new scores
+        UIManager.Instance.PlayerScores(player1Wins, player2Wins);
     }
 
 

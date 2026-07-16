@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private GameObject gameOverPanel;
 
+    [SerializeField] private TextMeshProUGUI player1wins;
+    [SerializeField] private TextMeshProUGUI player2wins;
 
     [SerializeField] private GameObject player1end;
     [SerializeField] private GameObject player2end;
@@ -53,6 +55,14 @@ public class UIManager : MonoBehaviour
         player1end.SetActive(false);
         player2end.SetActive(true);
     }
+
+    // shows player scores
+    public void PlayerScores(int player1Score, int player2Score)
+    {
+        player1wins.text = $"Player 1 Score: {player1Score}";
+        player2wins.text = $"Player 2 Score: {player2Score}";
+    }
+
 
     // toggles the UI on or off based on the boolean (or the true or false statement) passed into it
     public void ToggleGameOverUI(bool flag)
