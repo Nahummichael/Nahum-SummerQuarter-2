@@ -23,7 +23,7 @@ public class HotPotato : MonoBehaviour
 
     void Update() 
     { 
-        if (timer > 0) 
+        if (timer > 0 ) 
         { 
             timer -= Time.deltaTime; 
             // Update the UI timer display
@@ -81,24 +81,29 @@ public class HotPotato : MonoBehaviour
         } 
         Destroy(gameObject);
 
-        // triggers the game over
-        GameManager.Instance.GameOver();
 
-        if (currentPlayer != null)
-{
+        // Try to get the PlayerController component from the current player
+        Player1Controller player1Controller = currentPlayer.GetComponent<Player1Controller>();
+        Player2Controller player2Controller = currentPlayer.GetComponent<Player2Controller>();
 
-    if (currentPlayer.name == "Player1")
-    {
-        UIManager.Instance.ShowPlayer1Death();
-
-        Debug.Log("Player 1 blew up!");
-    }
-    else if (currentPlayer.name == "Player2")
-    {
-        UIManager.Instance.ShowPlayer2Death();
-        Debug.Log("Player 2 blew up!");
-    }
-}
+        if (player1Controller != null)
+        {
+            // Player 1 has the potato, so trigger their death UI
+            UIManager.Instance.ShowPlayer1Death();
+            GameManager.Instance.GameOver(false);
+            Debug.Log("Player 1 blew up!");
+        }
+        else if (player2Controller != null)
+        {
+            // Player 2 has the potato, so trigger their death UI
+            UIManager.Instance.ShowPlayer2Death();
+            GameManager.Instance.GameOver(true);
+            Debug.Log("Player 2 blew up!");
+        }
+        else
+        {
+            Debug.LogWarning("Current player does not have a recognized PlayerController component.");
+        }
     } 
 
     public void ForcePickUp(Transform randomPlayer) 

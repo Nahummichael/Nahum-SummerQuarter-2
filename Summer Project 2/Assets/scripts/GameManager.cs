@@ -7,6 +7,12 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set;}
     [SerializeField] public static bool isGameOver = false; // a flag to determine if the game is over or not
 
+    // stores the number of wins for each player
+    public int player1Wins {get; private set;}
+    public int player2Wins {get; private set;}
+
+    // 1. players play the game
+    // 2. when the game ends calculate the number of wins between each player
     
     private void Awake()
     {
@@ -24,11 +30,16 @@ public class GameManager : MonoBehaviour
 
         // reset the game over flag
         isGameOver = false;
+        // PlayerPrefs.DeleteAll();
 
+        player1Wins = PlayerPrefs.GetInt("player1", 0);
+        player2Wins = PlayerPrefs.GetInt("player2", 0);
+
+        Debug.Log($"Player 1 wins: {player1Wins}, Player 2 wins: {player2Wins}");
     }
 
     // take the player back to the main menu when they win or lose
-    public void GameOver()
+    public void GameOver(bool player1Won)
     {
         if (isGameOver) return; // if the game is already over, do nothing
         // set the game to be over
@@ -36,6 +47,20 @@ public class GameManager : MonoBehaviour
         // trigger the over UI
          // trigger the game over UI the the game ends
         UIManager.Instance.ToggleGameOverUI(true);
+
+        if (player1Won)
+        {
+            // checking which player won
+            player1Wins ++;
+            PlayerPrefs.SetInt("player1", player1Wins);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            player2Wins ++;
+            PlayerPrefs.SetInt("player2", player2Wins);
+            PlayerPrefs.Save();
+        }
     }
 
 
