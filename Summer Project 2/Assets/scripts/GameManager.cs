@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     // this will be a singleton instance
     public static GameManager Instance { get; private set;}
     [SerializeField] public static bool isGameOver = false; // a flag to determine if the game is over or not
-
+    [SerializeField] private TextMeshProUGUI player1wins;
+    [SerializeField] private TextMeshProUGUI player2wins;
     // stores the number of wins for each player
     public int player1Wins {get; private set;}
     public int player2Wins {get; private set;}
@@ -30,12 +32,18 @@ public class GameManager : MonoBehaviour
 
         // reset the game over flag
         isGameOver = false;
-        // PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
 
         player1Wins = PlayerPrefs.GetInt("player1", 0);
         player2Wins = PlayerPrefs.GetInt("player2", 0);
 
         Debug.Log($"Player 1 wins: {player1Wins}, Player 2 wins: {player2Wins}");
+    }
+
+    public void Update()
+    {
+        player1wins.text = player1Wins.ToString();
+        player2wins.text = player2Wins.ToString();
     }
 
     // take the player back to the main menu when they win or lose
@@ -63,7 +71,7 @@ public class GameManager : MonoBehaviour
         }
 
         // update the UI with the new scores
-        UIManager.Instance.PlayerScores(player1Wins, player2Wins);
+        // UIManager.Instance.PlayerScores(player1Wins, player2Wins);
     }
 
 

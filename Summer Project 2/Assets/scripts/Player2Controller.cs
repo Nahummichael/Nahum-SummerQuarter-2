@@ -101,4 +101,21 @@ public class Player2Controller : MonoBehaviour
         groundCheckDistance, groundLayer);
     }
 
+
+    private void OnColllsionEnter(Collision collision)
+    {
+        // Check if the player collided with the potato
+        if (collision.gameObject.CompareTag("Potato"))
+        {
+            // Get the HotPotato script from the potato object
+            HotPotato hotPotato = collision.gameObject.GetComponent<HotPotato>();
+
+            // Check if the potato is not already picked up
+            if (hotPotato != null && !hotPotato.IsPickedUp())
+            {
+                // Pass the potato to this player
+                hotPotato.PickUp(transform);
+            }
+        }
+    }   
 }

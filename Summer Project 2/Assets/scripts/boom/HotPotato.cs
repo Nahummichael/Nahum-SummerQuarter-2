@@ -9,7 +9,12 @@ public class HotPotato : MonoBehaviour
     [Header("Explosion Settings")] 
     [SerializeField] private GameObject explosionEffect; 
 
-    private Transform currentPlayer;
+    [SerializeField] private Transform currentPlayer;
+
+public Transform CurrentPlayer
+{
+    get { return currentPlayer; }
+}
 
     private bool isExploding = false; 
     [SerializeField] private float timer; 
@@ -60,17 +65,14 @@ public class HotPotato : MonoBehaviour
         PickUp(selectedPlayer.transform);
     } 
 
-    void PickUp(Transform playerTransform) 
+    public void PickUp(Transform playerTransform) 
     { 
-        isPickedUp = true;
         currentPlayer = playerTransform;
 
-        // Disable collider so it stops triggering
-        GetComponent<Collider>().enabled = false; 
+    transform.SetParent(playerTransform);
+    transform.localPosition = new Vector3(0, 1f, 0.5f);
 
-        // Snap it to the player 
-        transform.SetParent(playerTransform); 
-        transform.localPosition = new Vector3(0, 1f, 0.5f); 
+    Debug.Log("Potato is now held by: " + currentPlayer.name);
     } 
 
     void Explode() 
@@ -104,6 +106,8 @@ public class HotPotato : MonoBehaviour
         {
             Debug.LogWarning("Current player does not have a recognized PlayerController component.");
         }
+
+
     } 
 
     public void ForcePickUp(Transform randomPlayer) 
@@ -122,5 +126,15 @@ public class HotPotato : MonoBehaviour
     public float GetRemainingTime() 
     { 
         return timer; 
+    }
+
+    public void PassToPlayer(Transform newPlayer)
+    {
+    currentPlayer = newPlayer;
+
+    transform.SetParent(newPlayer);
+    transform.localPosition = new Vector3(0, 1f, 0.5f);
+
+    Debug.Log("Potato passed to: " + newPlayer.name);
     }
 }

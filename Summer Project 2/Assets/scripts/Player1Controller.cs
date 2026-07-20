@@ -125,4 +125,19 @@ public class Player1Controller : MonoBehaviour
         }
     }
 
+
+   private void OnCollisionEnter(Collision collision)
+    {
+        // Check if we hit another player
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Transform currentHolder = potato.CurrentPlayer;
+
+            // If this player does NOT have the potato, take it
+            if (currentHolder != transform)
+            {
+                potato.PassToPlayer(transform);
+            }
+        }
+    }
 }
