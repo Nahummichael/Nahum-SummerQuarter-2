@@ -3,7 +3,8 @@ using UnityEngine.InputSystem;
 
 public class Player1Controller : MonoBehaviour
 {
-    
+    [SerializeField] private HotPotato hotPotato;
+    [SerializeField] private Transform otherPlayer; // drag Player2 here in Inspector
 
     [SerializeField, Tooltip("A variable to store the input action sheet the player needs for inputs")] 
     private InputActionAsset InputActions;
@@ -20,6 +21,7 @@ public class Player1Controller : MonoBehaviour
 
     //Components
     [SerializeField] private Rigidbody rb;
+    public bool isHoldingPotato = false; // New variable to track if the player is holding the potato
 
 
     //player settings 
@@ -35,6 +37,7 @@ public class Player1Controller : MonoBehaviour
 
         //assign the rb variable to the player
         rb = GetComponent<Rigidbody>();
+        isHoldingPotato = hotPotato != null; // Check if the player is holding the potato at the start
     }
 
     private void OnEnable()
@@ -104,7 +107,7 @@ public class Player1Controller : MonoBehaviour
     }
 
 
-    private void OnColllsionEnter(Collision collision)
+    /*private void OnColllsionEnter(Collision collision)
     {
         // Detect if the player collides with the other player
         Player2Controller otherPlayer = collision.gameObject.GetComponent<Player2Controller>();
@@ -119,25 +122,40 @@ public class Player1Controller : MonoBehaviour
                 float remainingTime = hotPotato.GetRemainingTime();
                 Destroy(hotPotato); // Remove the HotPotato component from this player  
                 // Add the HotPotato component to the other player with the remaining time
-                HotPotato newHotPotato = otherPlayer.gameObject.AddComponent<HotPotato>();
+                HotPotato newHotPotato = otherPlayer.GameObject.component<HotPotato>();
                 newHotPotato.SetRemainingTime(remainingTime);
             }
         }
-    }
+    }*/
 
 
-   private void OnCollisionEnter(Collision collision)
+/*private void OnTriggerEnter(Collider other)
+{
+    if (!other.CompareTag("Player")) return;
+
+    if (hotPotato.IsHeldBy(transform))
     {
-        // Check if we hit another player
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Transform currentHolder = potato.CurrentPlayer;
+        hotPotato.PassToPlayer(otherPlayer);
+    }
+}*/
 
-            // If this player does NOT have the potato, take it
-            if (currentHolder != transform)
+private void OnCollisionEnter(Collision collision)
+    {
+        Player2Controller Player2 = collision.gameObject.GetComponent<Player2Controller>();
+
+        if (Player2 != null)
+        {
+            Debug.Log($"{gameObject.name} hit {collision.gameObject.name}!");
+            // check if the object his has the hot potato
+            if (hotPotato != null)
             {
-                potato.PassToPlayer(transform);
+                Debug.Log("Passing The Potato!!!!");
+                // add the hotpotato to the player with the remaining time
+                HotPotato newPotato = Player2.gameObject.AddComponent<HotPotato>();
+                newPotato.Initialize(hotPotato.remainingTime);
+                Destroy(hotPotato); // Remove the HotPotato component from this player
             }
         }
     }
+
 }

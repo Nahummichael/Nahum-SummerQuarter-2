@@ -34,7 +34,7 @@ public class RandomSpawn : MonoBehaviour
         if (potatoScript != null)
         {
             // We call a public pickup method (we will update the potato script below to allow this)
-            potatoScript.ForcePickUp(chosenPlayer.transform);
+            //potatoScript.ForcePickUp(chosenPlayer.transform);
         }
     }
 }

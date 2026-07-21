@@ -3,6 +3,9 @@ using UnityEngine.InputSystem; //imports the input system into this script
 
 public class Player2Controller : MonoBehaviour
 {
+    [SerializeField] private HotPotato hotPotato;
+    [SerializeField] private Transform otherPlayer; // drag Player1 here in Inspector
+
     [SerializeField, Tooltip("A variable to store the input action sheet the player needs for inputs")] 
     private InputActionAsset InputActions;
 
@@ -23,6 +26,7 @@ public class Player2Controller : MonoBehaviour
     //player settings 
     [SerializeField, Tooltip("the speed the player moves at")] private float moveSpeed = 5f;
     [SerializeField, Tooltip("the player's jump height")] private float jumpForce = 5f;
+    public bool isHoldingPotato = false; // New variable to track if the player is holding the potato
 
     // awake is called when the instance first loads
     private void Awake()
@@ -33,6 +37,9 @@ public class Player2Controller : MonoBehaviour
 
         //assign the rb variable to the player
         rb = GetComponent<Rigidbody>();
+        isHoldingPotato = hotPotato != null; // Check if the player is holding the potato at the start
+
+
     }
 
     private void OnEnable()
@@ -102,20 +109,32 @@ public class Player2Controller : MonoBehaviour
     }
 
 
-    private void OnColllsionEnter(Collision collision)
+    /*private void OnTriggerEnter(Collider other)
     {
-        // Check if the player collided with the potato
-        if (collision.gameObject.CompareTag("Potato"))
-        {
-            // Get the HotPotato script from the potato object
-            HotPotato hotPotato = collision.gameObject.GetComponent<HotPotato>();
+        if (!other.CompareTag("Player")) return;
 
-            // Check if the potato is not already picked up
-            if (hotPotato != null && !hotPotato.IsPickedUp())
+        if (hotPotato.IsHeldBy(transform))
+        {
+            hotPotato.PassToPlayer(otherPlayer);
+        }
+    } */
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Player1Controller Player1 = collision.gameObject.GetComponent<Player1Controller>();
+
+        if (Player1 != null)
+        {
+            Debug.Log($"{gameObject.name} hit {collision.gameObject.name}!");
+            // check if the object hits has the hot potato
+            if (hotPotato != null)
             {
-                // Pass the potato to this player
-                hotPotato.PickUp(transform);
+                Debug.Log("Passing The Potato!!!!");
+                // add the hotpotato to the player with the remaining time
+                HotPotato newPotato = Player1.gameObject.AddComponent<HotPotato>();
+                newPotato.Initialize(hotPotato.remainingTime);
+                Destroy(hotPotato); // Remove the HotPotato component from this player
             }
         }
-    }   
+    }
 }
