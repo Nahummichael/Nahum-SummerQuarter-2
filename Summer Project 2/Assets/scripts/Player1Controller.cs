@@ -3,8 +3,7 @@ using UnityEngine.InputSystem;
 
 public class Player1Controller : MonoBehaviour
 {
-    [SerializeField] private HotPotato hotPotato;
-    [SerializeField] private Transform otherPlayer; // drag Player2 here in Inspector
+    
 
     [SerializeField, Tooltip("A variable to store the input action sheet the player needs for inputs")] 
     private InputActionAsset InputActions;
@@ -37,7 +36,7 @@ public class Player1Controller : MonoBehaviour
 
         //assign the rb variable to the player
         rb = GetComponent<Rigidbody>();
-        isHoldingPotato = hotPotato != null; // Check if the player is holding the potato at the start
+        isHoldingPotato = GetComponent<HotPotato>() != null; // Check if the player is holding the potato at the start
     }
 
     private void OnEnable()
@@ -146,14 +145,19 @@ private void OnCollisionEnter(Collision collision)
         if (Player2 != null)
         {
             Debug.Log($"{gameObject.name} hit {collision.gameObject.name}!");
+
+            HotPotato myPotato = GetComponent<HotPotato>();
             // check if the object his has the hot potato
-            if (hotPotato != null)
+            if (myPotato != null)
             {
                 Debug.Log("Passing The Potato!!!!");
                 // add the hotpotato to the player with the remaining time
                 HotPotato newPotato = Player2.gameObject.AddComponent<HotPotato>();
-                newPotato.Initialize(hotPotato.remainingTime);
-                Destroy(hotPotato); // Remove the HotPotato component from this player
+                newPotato.Initialize(myPotato.remainingTime);
+                Destroy(myPotato); // Remove the HotPotato component from this player
+
+                isHoldingPotato = false;
+                Player2.isHoldingPotato = true;
             }
         }
     }

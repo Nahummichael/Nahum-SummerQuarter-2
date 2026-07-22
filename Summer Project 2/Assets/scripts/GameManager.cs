@@ -74,6 +74,35 @@ public class GameManager : MonoBehaviour
         // UIManager.Instance.PlayerScores(player1Wins, player2Wins);
     }
 
+    void Start()
+    {
+        // start the round
+        StartRound();
+    }
+
+
+    public void StartRound()
+{
+    Player1Controller player1 = FindObjectOfType<Player1Controller>();
+    Player2Controller player2 = FindObjectOfType<Player2Controller>();
+
+    // randomly pick who starts with it
+    bool player1Starts = Random.value > 0.5f;
+
+    if (player1Starts)
+    {
+        HotPotato potato = player1.gameObject.AddComponent<HotPotato>();
+        player1.isHoldingPotato = true;
+        player2.isHoldingPotato = false;
+    }
+    else
+    {
+        HotPotato potato = player2.gameObject.AddComponent<HotPotato>();
+        player2.isHoldingPotato = true;
+        player1.isHoldingPotato = false;
+    }
+}
+
 
     public void LoadMainMenu()
     {

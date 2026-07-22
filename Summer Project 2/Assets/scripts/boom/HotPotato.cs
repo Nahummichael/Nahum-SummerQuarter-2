@@ -27,6 +27,8 @@ public class HotPotato : MonoBehaviour
         {
             Destroy(gameObject);
             Debug.Log("BOOOM!");
+            // Trigger game over for the player who has the hot potato
+            
         }
     } 
 }

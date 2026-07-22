@@ -762,8 +762,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2222fda590a8f4eb0b081260f1c64fa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  hotPotato: {fileID: 1215617342}
-  otherPlayer: {fileID: 0}
   InputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   groundLayer:
     serializedVersion: 2
@@ -771,7 +769,7 @@ MonoBehaviour:
   groundCheckDistance: 1
   rb: {fileID: 159540892}
   isHoldingPotato: 0
-  moveSpeed: 8
+  moveSpeed: 10
   jumpForce: 5
 --- !u!54 &159540892
 Rigidbody:
@@ -4431,15 +4429,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91f9b0b66bcf84b6a98f6699681454f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player2
-  hotPotato: {fileID: 1215617342}
-  otherPlayer: {fileID: 0}
   InputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   groundCheckDistance: 1
   rb: {fileID: 1459993815}
-  moveSpeed: 8
+  moveSpeed: 10
   jumpForce: 5
   isHoldingPotato: 0
 --- !u!135 &1459993817
