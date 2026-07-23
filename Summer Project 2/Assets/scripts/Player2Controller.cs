@@ -21,6 +21,9 @@ public class Player2Controller : MonoBehaviour
     //Components
     [SerializeField] private Rigidbody rb;
 
+    [SerializeField] private float passCooldown = 0.5f;
+    public bool canReceivePotato = true;
+
 
     //player settings 
     [SerializeField, Tooltip("the speed the player moves at")] private float moveSpeed = 5f;
@@ -107,38 +110,63 @@ public class Player2Controller : MonoBehaviour
         groundCheckDistance, groundLayer);
     }
 
-
-    /*private void OnTriggerEnter(Collider other)
+    public void ResetPassCooldown()
     {
-        if (!other.CompareTag("Player")) return;
-
-        if (hotPotato.IsHeldBy(transform))
-        {
-            hotPotato.PassToPlayer(otherPlayer);
-        }
-    } */
+        canReceivePotato = true;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Player1Controller Player1 = collision.gameObject.GetComponent<Player1Controller>();
+        // ADDED: block passing once the game has ended (this check already existed
+        // in HandleMovement/HandleJump but was missing here)
+        if (GameManager.isGameOver) return;
 
-        if (Player1 != null)
-        {
-            Debug.Log($"{gameObject.name} hit {collision.gameObject.name}!");
+        Player1Controller player1 = collision.gameObject.GetComponent<Player1Controller>();
 
-            HotPotato myPotato = GetComponent<HotPotato>();
-            // check if the object hits has the hot potato
-            if (myPotato != null)
-            {
-                Debug.Log("Passing The Potato!!!!");
-                // add the hotpotato to the player with the remaining time
-                HotPotato newPotato = Player1.gameObject.AddComponent<HotPotato>();
-                newPotato.Initialize(myPotato.remainingTime);
-                Destroy(myPotato); // Remove the HotPotato component from this player
+        // Didn't collide with Player 2
+        if (player1 == null)
+            return;
 
-                isHoldingPotato = false;
-                Player1.isHoldingPotato = true;
-            }
-        }
+        Debug.Log($"{gameObject.name} hit {collision.gameObject.name}!");
+
+        // Player 1 isn't holding the potato
+        if (!isHoldingPotato)
+            return;
+
+        // Player 2 is still on cooldown
+        if (!player1.canReceivePotato)
+            return;
+
+        // Safety check
+        if (player1.isHoldingPotato)
+            return;
+
+        HotPotato myPotato = GetComponent<HotPotato>();
+
+        if (myPotato == null)
+            return;
+
+        Debug.Log("Player 1 passes potato to Player 2!");
+
+        // Give Player 2 the potato
+        HotPotato newPotato = player1.gameObject.AddComponent<HotPotato>();
+        newPotato.Initialize(myPotato.remainingTime);
+
+        // Remove the potato from Player 1
+        Destroy(myPotato);
+
+        // Update holder states
+        isHoldingPotato = false;
+        player1.isHoldingPotato = true;
+
+        // ADDED: put Player 1 (the giver) on cooldown too, not just Player 2.
+        // Previously only the receiver got a cooldown, so the potato could
+        // bounce straight back to Player 1 on the very next collision.
+        canReceivePotato = false;
+        Invoke(nameof(ResetPassCooldown), passCooldown);
+
+        // Start Player 2's receive cooldown (unchanged, was already here)
+        player1.canReceivePotato = false;
+        player1.Invoke(nameof(player1.ResetPassCooldown), passCooldown);
     }
 }

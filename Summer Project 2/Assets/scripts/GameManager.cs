@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
         // reset the game over flag
         isGameOver = false;
-        PlayerPrefs.DeleteAll();
+        // PlayerPrefs.DeleteAll();
 
         player1Wins = PlayerPrefs.GetInt("player1", 0);
         player2Wins = PlayerPrefs.GetInt("player2", 0);
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // start the round
-        StartRound();
+        // StartRound();
     }
 
 
