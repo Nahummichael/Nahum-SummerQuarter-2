@@ -34,17 +34,24 @@ public class HotPotato : MonoBehaviour
         {
             Destroy(gameObject);
             Debug.Log("BOOOM!");
-            // ADDED: tell the UI which player died based on who's holding this potato
+            // tell the UI which player died based on who's holding this potato
             if (GetComponent<Player1Controller>() != null)
             {
                 UIManager.Instance.ShowPlayer1Death();
+                
             }
             else if (GetComponent<Player2Controller>() != null)
             {
                 UIManager.Instance.ShowPlayer2Death();
             }
 
-            // ADDED: show the game over panel
+            // figure out who was holding the potato when it exploded
+            bool player1Held = GetComponent<Player1Controller>() != null;
+
+            // gameManager handles the scoring
+            // player1Held == true means Player1 lost, so Player2 gets the point.
+            GameManager.Instance.GameOver(!player1Held);
+            //show the game over panel
             UIManager.Instance.ToggleGameOverUI(true);
         }
     } 
