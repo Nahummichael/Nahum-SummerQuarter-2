@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     public void ExitGame()
     {
         // Close the game application
+        Debug.Log("might only work when the game is actually played");
         Application.Quit();
     }
 }

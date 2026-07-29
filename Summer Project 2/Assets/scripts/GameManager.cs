@@ -107,12 +107,12 @@ public class GameManager : MonoBehaviour
     public void LoadMainMenu()
     {
         // load the main menu scene
-        SceneManager.LoadScene("0");
+        SceneManager.LoadScene(0);
     }
 
     public void LoadCurrentScene()
     {
         // reload the current scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
