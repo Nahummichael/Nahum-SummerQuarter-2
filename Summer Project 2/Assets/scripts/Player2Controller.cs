@@ -15,6 +15,7 @@ public class Player2Controller : MonoBehaviour
     //LOGIC
     private Vector2 moveInput2;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask wallLayer;
     [SerializeField] private float groundCheckDistance = 1f;
 
 
@@ -82,6 +83,14 @@ public class Player2Controller : MonoBehaviour
 
         //prvents diagonal movement from doubling speed since the player is using two inputs
         movementDirection.Normalize();
+
+         float moveDistance = moveSpeed * Time.fixedDeltaTime;
+        float rayDistance = moveDistance + 0.5f;
+
+        if (Physics.Raycast(transform.position, movementDirection, rayDistance, wallLayer))
+        {
+            return; // wall ahead — stop movement completely
+        }
 
         // actually moves the player
         rb.MovePosition(rb.position + movementDirection * moveSpeed * Time.deltaTime);

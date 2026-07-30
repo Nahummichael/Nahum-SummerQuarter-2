@@ -113,6 +113,6 @@ public class GameManager : MonoBehaviour
     public void LoadCurrentScene()
     {
         // reload the current scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
