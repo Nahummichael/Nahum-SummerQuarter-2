@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
 
         // reset the game over flag
         isGameOver = false;
+
+        // resets the score for now
         PlayerPrefs.DeleteAll();
 
         player1Wins = PlayerPrefs.GetInt("player1", 0);
@@ -74,12 +76,7 @@ public class GameManager : MonoBehaviour
         // UIManager.Instance.PlayerScores(player1Wins, player2Wins);
     }
 
-    void Start()
-    {
-        // start the round
-        // StartRound();
-    }
-
+   
 
     public void StartRound()
 {
