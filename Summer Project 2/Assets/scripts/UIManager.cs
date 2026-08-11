@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject PauseMenuPanel;
 
     [SerializeField] private TextMeshProUGUI player1wins;
     [SerializeField] private TextMeshProUGUI player2wins;
@@ -31,6 +32,9 @@ public class UIManager : MonoBehaviour
         }
         // turn off the game over panel on game start
         ToggleGameOverUI(false);
+
+        // hopefully turn off the pause menu on game start
+        PauseMenuPanel.SetActive(false);
 
         // Hide both death canvases when the game starts
         player1end.SetActive(false);
@@ -70,5 +74,9 @@ public class UIManager : MonoBehaviour
         gameOverPanel.SetActive(flag);
     }
 
-   
+   public void TogglePauseMenuUI(bool flag)
+    {
+        PauseMenuPanel.SetActive(flag);
+    }
+
 }

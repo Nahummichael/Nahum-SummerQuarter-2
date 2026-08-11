@@ -2648,9 +2648,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc127fc2f3fb416d9743b7f16308031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HotPotato
-  maxTimer: 10
-  remainingTime: 0
-  hotPotatoVisual: {fileID: 0}
 --- !u!1 &1241235139 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3403706665868283640, guid: 0b0315988d4640f4f8028117c16b74e1, type: 3}
@@ -3409,6 +3406,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
   groundCheckDistance: 1
   rb: {fileID: 1459993815}
   passCooldown: 0.5
@@ -5385,6 +5385,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
   groundCheckDistance: 1
   rb: {fileID: 2061481575}
   isHoldingPotato: 0
@@ -5911,6 +5914,34 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1242531689408812653, guid: bff043401e4074b9cb5d8f0d684a12ca, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242531689408812653, guid: bff043401e4074b9cb5d8f0d684a12ca, type: 3}
+      propertyPath: m_Colors.m_PressedColor.b
+      value: 0.22745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242531689408812653, guid: bff043401e4074b9cb5d8f0d684a12ca, type: 3}
+      propertyPath: m_Colors.m_PressedColor.g
+      value: 0.43529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242531689408812653, guid: bff043401e4074b9cb5d8f0d684a12ca, type: 3}
+      propertyPath: m_Colors.m_PressedColor.r
+      value: 0.6784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242531689408812653, guid: bff043401e4074b9cb5d8f0d684a12ca, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242531689408812653, guid: bff043401e4074b9cb5d8f0d684a12ca, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242531689408812653, guid: bff043401e4074b9cb5d8f0d684a12ca, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2468375641448615282, guid: bff043401e4074b9cb5d8f0d684a12ca, type: 3}
       propertyPath: m_text
       value: Tato
@@ -6046,6 +6077,34 @@ PrefabInstance:
     - target: {fileID: 7888586959841075939, guid: bff043401e4074b9cb5d8f0d684a12ca, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8546906868440825400, guid: bff043401e4074b9cb5d8f0d684a12ca, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8546906868440825400, guid: bff043401e4074b9cb5d8f0d684a12ca, type: 3}
+      propertyPath: m_Colors.m_PressedColor.b
+      value: 0.22745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 8546906868440825400, guid: bff043401e4074b9cb5d8f0d684a12ca, type: 3}
+      propertyPath: m_Colors.m_PressedColor.g
+      value: 0.43529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 8546906868440825400, guid: bff043401e4074b9cb5d8f0d684a12ca, type: 3}
+      propertyPath: m_Colors.m_PressedColor.r
+      value: 0.6784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 8546906868440825400, guid: bff043401e4074b9cb5d8f0d684a12ca, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8546906868440825400, guid: bff043401e4074b9cb5d8f0d684a12ca, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8546906868440825400, guid: bff043401e4074b9cb5d8f0d684a12ca, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
